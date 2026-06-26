@@ -63,7 +63,7 @@ docker compose up --build
 - API: http://localhost:8080
 - Swagger UI: http://localhost:8080/swagger-ui.html
 
-### Option 2 — Run the API locally
+### Option 2 — Run the API locally against PostgreSQL
 
 Start only the database with Docker, then run the API with the Maven wrapper:
 
@@ -72,6 +72,19 @@ docker compose up -d db
 cd backend
 ./mvnw spring-boot:run
 ```
+
+### Option 3 — Run the API with zero setup (in-memory H2)
+
+No Docker, no database to install. Uses an in-memory H2 database and Hibernate
+schema generation, and seeds the demo data:
+
+```bash
+cd backend
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+The H2 console is then available at http://localhost:8080/h2-console
+(JDBC URL `jdbc:h2:mem:fintrack`, user `sa`, no password).
 
 ### Demo account
 
