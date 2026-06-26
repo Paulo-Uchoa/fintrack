@@ -1,0 +1,91 @@
+<header class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="muted">{{ summary()?.month ?? '' }} overview</p>
+  </div>
+</header>
+
+@if (loading()) {
+  <p class="muted">Loading…</p>
+} @else if (error()) {
+  <p class="error-text">{{ error() }}</p>
+} @else if (summary(); as s) {
+  <section class="cards">
+    <div class="card stat">
+      <span class="muted">Income</span>
+      <strong class="income">{{ money(s.totalIncome) }}</strong>
+    </div>
+    <div class="card stat">
+      <span class="muted">Expenses</span>
+      <strong class="expense">{{ money(s.totalExpense) }}</strong>
+    </div>
+    <div class="card stat">
+      <span class="muted">Balance</span>
+      <strong [class.income]="s.balance >= 0" [class.expense]="s.balance < 0">
+        {{ money(s.balance) }}
+      </strong>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>Spending by category</h2>
+      @if (segments().length === 0) {
+        <p class="muted empty">No expenses recorded this month.</p>
+      } @else {
+        <div class="donut-wrap">
+          <svg viewBox="0 0 140 140" class="donut">
+            <circle cx="70" cy="70" r="60" class="donut-track" />
+            @for (seg of segments(); track seg.name) {
+              <circle
+                cx="70"
+                cy="70"
+                r="60"
+                class="donut-seg"
+                [attr.stroke]="seg.color"
+                [attr.stroke-dasharray]="seg.dash + ' ' + circumference"
+                [attr.stroke-dashoffset]="-seg.offset"
+              />
+            }
+            <text x="70" y="66" class="donut-label">{{ money(s.totalExpense) }}</text>
+            <text x="70" y="84" class="donut-sub">spent</text>
+          </svg>
+          <ul class="legend">
+            @for (seg of segments(); track seg.name) {
+              <li>
+                <span class="dot" [style.background]="seg.color"></span>
+                <span class="legend-name">{{ seg.name }}</span>
+                <span class="muted">{{ seg.percent }}%</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+    <div class="card">
+      <h2>Budgets</h2>
+      @if (budgets().length === 0) {
+        <p class="muted empty">No budgets set for this month.</p>
+      } @else {
+        <ul class="budgets">
+          @for (b of budgets(); track b.id) {
+            <li>
+              <div class="budget-head">
+                <span>{{ b.categoryName }}</span>
+                <span class="muted">{{ money(b.spent) }} / {{ money(b.limitAmount) }}</span>
+              </div>
+              <div class="bar">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="budgetPercent(b)"
+                  [style.background]="budgetColor(b)"
+                ></div>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </section>
+}
