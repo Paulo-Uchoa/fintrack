@@ -5,7 +5,7 @@
 ![CI](https://github.com/Paulo-Uchoa/fintrack/actions/workflows/ci.yml/badge.svg)
 ![Java](https://img.shields.io/badge/Java-17-orange.svg)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-brightgreen.svg)
-![Angular](https://img.shields.io/badge/Angular-18-red.svg)
+![Angular](https://img.shields.io/badge/Angular-21-red.svg)
 
 FinTrack lets a user track income and expenses across multiple accounts, organise them by
 category, set monthly budgets, and visualise where the money goes. It is built as a clean,
@@ -48,7 +48,7 @@ Cross-cutting concerns live in `common` (error handling, pagination) and `securi
 | Auth      | JWT (jjwt), BCrypt                                                |
 | Docs      | springdoc-openapi (Swagger UI)                                   |
 | Testing   | JUnit 5, Mockito, Testcontainers, Spring Security Test            |
-| Frontend  | Angular 18, TypeScript, RxJS                                      |
+| Frontend  | Angular 21, TypeScript, RxJS, Signals                             |
 | Tooling   | Maven, Docker, GitHub Actions                                    |
 
 ## Getting started
