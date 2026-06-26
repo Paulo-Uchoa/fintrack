@@ -1,0 +1,31 @@
+<div class="auth">
+  <form class="auth-card card" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="brand">
+      <span class="logo">₿</span>
+      <h1>FinTrack</h1>
+    </div>
+    <p class="muted subtitle">Sign in to your account</p>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+    </div>
+
+    @if (error()) {
+      <p class="error-text">{{ error() }}</p>
+    }
+
+    <button class="btn full" type="submit" [disabled]="loading()">
+      {{ loading() ? 'Signing in…' : 'Sign in' }}
+    </button>
+
+    <p class="muted switch">
+      Don't have an account? <a routerLink="/register">Create one</a>
+    </p>
+  </form>
+</div>
