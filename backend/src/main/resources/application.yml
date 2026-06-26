@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: fintrack-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fintrack}
+    username: ${DB_USERNAME:fintrack}
+    password: ${DB_PASSWORD:fintrack}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+fintrack:
+  jwt:
+    secret: ${FINTRACK_JWT_SECRET:Y2hhbmdlLW1lLWluLXByb2R1Y3Rpb24tdGhpcy1pcy1hLWRldi1zZWNyZXQ=}
+    expiration-minutes: ${FINTRACK_JWT_EXPIRATION_MINUTES:120}
+  seed:
+    enabled: ${FINTRACK_SEED_ENABLED:true}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.hibernate.SQL: ${SQL_LOG_LEVEL:INFO}
